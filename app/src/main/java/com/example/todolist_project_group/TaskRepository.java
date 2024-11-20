@@ -42,7 +42,7 @@ public class TaskRepository {
 
         if (cursor.moveToFirst()) {
             do {
-                Task t = new Task(cursor.getString(1),cursor.getString(2),cursor.getString(3),Boolean.parseBoolean(cursor.getString(4)));
+                Task t = new Task(cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getInt(4));
                 tasks.add(t); // เพิ่ม title ลง List
 
             } while (cursor.moveToNext());

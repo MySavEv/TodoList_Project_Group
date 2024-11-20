@@ -13,16 +13,16 @@ public class Task {
     private String title;
     private String description;
     private String date;
-    private boolean status;
+    private int status;
 
-    public Task(String title, String description, Date date, boolean status) {
+    public Task(String title, String description, Date date, int status) {
         this.title = title;
         this.description = description;
         this.date = dateFormat.format(date);
         this.status = status;
     }
 
-    public Task(String title, String description, String date, boolean status) {
+    public Task(String title, String description, String date, int status) {
         this.title = title;
         this.description = description;
         this.date = date;
@@ -41,7 +41,7 @@ public class Task {
         return date;
     }
 
-    public boolean isStatus() {
+    public int getStatus() {
         return status;
     }
 }

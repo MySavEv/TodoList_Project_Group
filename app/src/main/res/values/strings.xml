@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">TodoList_Project_Group</string>
+    <string name="title">To-Do List</string>
+    <string-array name="planets_array">
+        <item>Not Yey</item>
+        <item>in Process</item>
+        <item>Complete</item>
+    </string-array>
 </resources>

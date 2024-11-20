@@ -6,12 +6,15 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
 
         taskList = new ArrayList<>();
         taskAdapter = new TaskAdapter(taskList);
-
         recyclerViewTasks.setAdapter(taskAdapter);
 
         // Sample data
@@ -58,6 +60,34 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false; // No movement allowed
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                int position = viewHolder.getAdapterPosition();
+
+                //Alert ask use for delete task
+                new AlertDialog.Builder(MainActivity.this)
+                        .setMessage("Are you sure you want to delete this task?")
+                        .setPositiveButton("Yes", (dialog, which) -> {
+                            // Proceed with deletion
+                            taskAdapter.removeItem(position);
+                        })
+                        .setNegativeButton("No", (dialog, which) -> {
+                            // Undo the swipe (reverting the swipe action)
+                            taskAdapter.notifyItemChanged(position);
+                        })
+                        .show();
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerViewTasks);
     }
 
     @Override
@@ -69,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
             String description = data.getStringExtra("TASK_DESCRIPTION");
 
             // Add the new task to the list and update the adapter
-            taskList.add(new Task(title, description,new Date(),false));
+            taskList.add(new Task(title, description,new Date(),0));
             taskAdapter.notifyDataSetChanged();
         }
     }

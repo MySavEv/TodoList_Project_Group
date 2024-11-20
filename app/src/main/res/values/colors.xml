@@ -2,4 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="notyet">#B0BEC5</color>
+    <color name="inprocess">#FF9800</color>
+    <color name="complete">#4CAF50</color>
 </resources>

@@ -1,8 +1,11 @@
 package com.example.todolist_project_group;// TaskAdapter.java
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,10 +30,33 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
         Task task = tasks.get(position);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                holder.itemView.getContext(),
+                R.array.planets_array,
+                android.R.layout.simple_spinner_item
+        );
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
         holder.titleTextView.setText(task.getTitle());
         holder.descriptionTextView.setText(task.getDescription());
         holder.textDate.setText(task.getDate());
-        holder.textStatus.setText(String.valueOf(task.isStatus()));
+        holder.textStatus.setAdapter(adapter);
+
+        switch (task.getStatus()){
+            case 0:
+                holder.textStatus.setSelection(0);
+                holder.itemView.setBackgroundResource(R.drawable.notyet_background);
+            case 1:
+                holder.textStatus.setSelection(1);
+                holder.itemView.setBackgroundResource(R.drawable.inprocess_background);
+            case 2:
+                holder.textStatus.setSelection(2);
+                holder.itemView.setBackgroundResource(R.drawable.complete_background);
+        }
+
     }
 
     @Override
@@ -38,11 +64,16 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         return tasks.size();
     }
 
+    public void removeItem(int position) {
+        tasks.remove(position);
+        notifyItemRemoved(position);
+    }
+
     static class TaskViewHolder extends RecyclerView.ViewHolder {
         TextView titleTextView;
         TextView descriptionTextView;
         TextView textDate;
-        TextView textStatus;
+        Spinner textStatus;
 
 
         TaskViewHolder(View view) {
@@ -50,7 +81,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             titleTextView = view.findViewById(R.id.textTaskTitle);
             descriptionTextView = view.findViewById(R.id.textTaskDescription);
             textDate = view.findViewById(R.id.textDate);
-            textStatus = view.findViewById(R.id.textStatus);
+            textStatus = (Spinner)view.findViewById(R.id.textStatus);
+
         }
     }
 }

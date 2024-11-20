@@ -3,36 +3,54 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp"
-    android:background="?attr/selectableItemBackground">
+    android:orientation="horizontal"
+    android:padding="15dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/notyet_background"
+    >
 
-    <TextView
-        android:id="@+id/textTaskTitle"
-        android:layout_width="wrap_content"
+    <!-- กล่องซ้ายสำหรับ Title และ Description -->
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Task Title"
-        android:textSize="18sp"
-        android:textStyle="bold"/>
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textTaskDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Task Description"
-        android:textSize="14sp"/>
+        <TextView
+            android:id="@+id/textTaskTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Task Title"
+            android:padding="2dp"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Task Description"
-        android:textSize="14sp"/>
+        <TextView
+            android:id="@+id/textTaskDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description 1"
+            android:padding="2dp"
+            android:textSize="14sp" />
 
-    <TextView
+        <TextView
+            android:id="@+id/textDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Task date"
+            android:padding="2dp"
+            android:textSize="14sp"/>
+
+
+    </LinearLayout>
+
+    <!-- Status -->
+    <Spinner
         android:id="@+id/textStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Task Description"
-        android:textSize="14sp"/>
+        android:paddingHorizontal="2dp"
+        android:spinnerMode="dropdown" />
+
+
 </LinearLayout>

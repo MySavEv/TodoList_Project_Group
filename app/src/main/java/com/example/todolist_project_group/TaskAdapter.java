@@ -49,9 +49,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             case 0:
                 holder.textStatus.setSelection(0);
                 holder.itemView.setBackgroundResource(R.drawable.notyet_background);
+                break;
             case 1:
                 holder.textStatus.setSelection(1);
                 holder.itemView.setBackgroundResource(R.drawable.inprocess_background);
+                break;
             case 2:
                 holder.textStatus.setSelection(2);
                 holder.itemView.setBackgroundResource(R.drawable.complete_background);

@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewTasks.setAdapter(taskAdapter);
 
         // Sample data
-        taskRepository.insertTask("1", "Milk, Eggs, Bread",new Date(),false);
+        taskRepository.insertTask("1", "Milk, Eggs, Bread",new Date(),0);
 
         taskList.addAll(taskRepository.getAllTasks());
 

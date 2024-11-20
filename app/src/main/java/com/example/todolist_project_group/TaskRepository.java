@@ -20,7 +20,7 @@ public class TaskRepository {
         dbHelper = new DatabaseHelper(context);
     }
 
-    public long insertTask(String title, String description, Date date,boolean status) {
+    public long insertTask(String title, String description, Date date,int status) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("title", title);

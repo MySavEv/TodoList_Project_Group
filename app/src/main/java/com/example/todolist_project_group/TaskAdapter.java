@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -58,6 +59,30 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
                 holder.textStatus.setSelection(2);
                 holder.itemView.setBackgroundResource(R.drawable.complete_background);
         }
+
+        holder.textStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (i){
+                    case 0:
+                        holder.textStatus.setSelection(0);
+                        holder.itemView.setBackgroundResource(R.drawable.notyet_background);
+                        break;
+                    case 1:
+                        holder.textStatus.setSelection(1);
+                        holder.itemView.setBackgroundResource(R.drawable.inprocess_background);
+                        break;
+                    case 2:
+                        holder.textStatus.setSelection(2);
+                        holder.itemView.setBackgroundResource(R.drawable.complete_background);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
     }
 

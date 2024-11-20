@@ -10,6 +10,14 @@
     >
 
     <!-- กล่องซ้ายสำหรับ Title และ Description -->
+    <TextView
+        android:id="@+id/textId"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:text="34"/>
+<!--        android:visibility="gone"-->
+
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"

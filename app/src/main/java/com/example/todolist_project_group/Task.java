@@ -8,21 +8,24 @@ import java.util.Date;
 public class Task {
     @SuppressLint("SimpleDateFormat")
     private static final SimpleDateFormat dateFormat =
-            new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            new SimpleDateFormat("yyyy-MM-dd");
 
+    private int id;
     private String title;
     private String description;
     private String date;
     private int status;
 
-    public Task(String title, String description, Date date, int status) {
+    public Task(int id, String title, String description, Date date, int status) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.date = dateFormat.format(date);
         this.status = status;
     }
 
-    public Task(String title, String description, String date, int status) {
+    public Task(int id, String title, String description, String date, int status) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.date = date;
@@ -43,5 +46,9 @@ public class Task {
 
     public int getStatus() {
         return status;
+    }
+
+    public int getId() {
+        return id;
     }
 }

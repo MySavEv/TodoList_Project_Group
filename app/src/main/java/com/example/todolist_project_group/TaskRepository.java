@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.List;
 
 public class TaskRepository {
     private static final SimpleDateFormat dateFormat =
-            new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            new SimpleDateFormat("dd/MM/yyyy");
 
     private DatabaseHelper dbHelper;
 
@@ -34,6 +35,20 @@ public class TaskRepository {
         return id;
     }
 
+    public long insertTask(String title, String description, String date,int status) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("title", title);
+        values.put("description", description);
+        values.put("date", date);
+        values.put("status", status);
+
+        // เพิ่มข้อมูลลงตาราง tasks
+        long id = db.insert("tasks", null, values);
+        db.close();
+        return id;
+    }
+
     public List<Task> getAllTasks() {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         List<Task> tasks = new ArrayList<>();
@@ -42,7 +57,7 @@ public class TaskRepository {
 
         if (cursor.moveToFirst()) {
             do {
-                Task t = new Task(cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getInt(4));
+                Task t = new Task(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getInt(4));
                 tasks.add(t); // เพิ่ม title ลง List
 
             } while (cursor.moveToNext());
@@ -50,5 +65,27 @@ public class TaskRepository {
         cursor.close();
         db.close();
         return tasks;
+    }
+
+    public int updateStatus(int id,int status){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String query = "UPDATE tasks\n" +
+                "SET status = ?\n" +
+                "WHERE id = ?;";
+        SQLiteStatement stmt = db.compileStatement(query);
+        stmt.bindLong(1,status);
+        stmt.bindLong(2,id);
+
+        return stmt.executeUpdateDelete();
+    }
+
+    public int deleteTask(int id){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String query = "DELETE FROM tasks WHERE id = ?";
+        SQLiteStatement stmt = db.compileStatement(query);
+
+        stmt.bindLong(1, id);
+
+        return stmt.executeUpdateDelete();
     }
 }

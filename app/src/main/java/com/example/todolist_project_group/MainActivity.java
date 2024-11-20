@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -42,14 +43,13 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewTasks.setLayoutManager(new LinearLayoutManager(this));
 
         taskList = new ArrayList<>();
-        taskAdapter = new TaskAdapter(taskList);
+        taskAdapter = new TaskAdapter(taskList,taskRepository);
         recyclerViewTasks.setAdapter(taskAdapter);
 
         // Sample data
         taskRepository.insertTask("1", "Milk, Eggs, Bread",new Date(),0);
 
         taskList.addAll(taskRepository.getAllTasks());
-
         taskAdapter.notifyDataSetChanged();
 
         Button buttonAddTask = findViewById(R.id.buttonAddTask);
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AddTaskActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,1);
             }
         });
 
@@ -70,12 +70,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
-
                 //Alert ask use for delete task
                 new AlertDialog.Builder(MainActivity.this)
                         .setMessage("Are you sure you want to delete this task?")
                         .setPositiveButton("Yes", (dialog, which) -> {
                             // Proceed with deletion
+                            taskRepository.deleteTask(taskList.get(position).getId());
                             taskAdapter.removeItem(position);
                         })
                         .setNegativeButton("No", (dialog, which) -> {
@@ -97,9 +97,12 @@ public class MainActivity extends AppCompatActivity {
             // Retrieve the task details from the intent
             String title = data.getStringExtra("TASK_TITLE");
             String description = data.getStringExtra("TASK_DESCRIPTION");
+            String duedate = data.getStringExtra("TASK_DUEDATE");
 
             // Add the new task to the list and update the adapter
-            taskList.add(new Task(title, description,new Date(),0));
+            taskRepository.insertTask(title,description,duedate,0);
+            taskList.removeAll(taskList);
+            taskList.addAll(taskRepository.getAllTasks());
             taskAdapter.notifyDataSetChanged();
         }
     }

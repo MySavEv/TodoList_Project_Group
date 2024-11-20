@@ -14,10 +14,14 @@ import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
 
+    private TaskRepository taskRepository;
     private List<Task> tasks;
+    private Context ctx;
 
-    public TaskAdapter(List<Task> tasks) {
+    public TaskAdapter(List<Task> tasks,TaskRepository taskRepo) {
         this.tasks = tasks;
+        this.ctx = ctx;
+        taskRepository = taskRepo;
     }
 
     @NonNull
@@ -40,7 +44,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-
+        holder.id.setText(String.valueOf(task.getId()));
         holder.titleTextView.setText(task.getTitle());
         holder.descriptionTextView.setText(task.getDescription());
         holder.textDate.setText(task.getDate());
@@ -63,18 +67,23 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         holder.textStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Context ctx = view.getContext();
+                int taskId = Integer.parseInt(holder.id.getText().toString());
                 switch (i){
                     case 0:
                         holder.textStatus.setSelection(0);
                         holder.itemView.setBackgroundResource(R.drawable.notyet_background);
+                        taskRepository.updateStatus(taskId,0);
                         break;
                     case 1:
                         holder.textStatus.setSelection(1);
                         holder.itemView.setBackgroundResource(R.drawable.inprocess_background);
+                        taskRepository.updateStatus(taskId,1);
                         break;
                     case 2:
                         holder.textStatus.setSelection(2);
                         holder.itemView.setBackgroundResource(R.drawable.complete_background);
+                        taskRepository.updateStatus(taskId,2);
                 }
             }
 
@@ -97,6 +106,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     }
 
     static class TaskViewHolder extends RecyclerView.ViewHolder {
+        TextView id;
         TextView titleTextView;
         TextView descriptionTextView;
         TextView textDate;
@@ -105,6 +115,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
         TaskViewHolder(View view) {
             super(view);
+            id = view.findViewById(R.id.textId);
             titleTextView = view.findViewById(R.id.textTaskTitle);
             descriptionTextView = view.findViewById(R.id.textTaskDescription);
             textDate = view.findViewById(R.id.textDate);

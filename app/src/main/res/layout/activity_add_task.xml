@@ -19,6 +19,13 @@
         android:hint="Task Description"
         android:layout_marginTop="8dp"/>
 
+    <TextView
+        android:id="@+id/editTextDueDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Select Date"
+        android:layout_marginTop="8dp"/>
+
     <Button
         android:id="@+id/buttonSaveTask"
         android:layout_width="wrap_content"

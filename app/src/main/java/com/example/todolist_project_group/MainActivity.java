@@ -50,8 +50,7 @@ public class MainActivity extends AppCompatActivity {
         // Sample data
         taskRepository.insertTask("1", "Milk, Eggs, Bread",new Date(),0);
 
-        taskList.addAll(taskRepository.getAllTasks());
-        Collections.reverse(taskList);
+        updateTaskLists();
         taskAdapter.notifyDataSetChanged();
 
         Button buttonAddTask = findViewById(R.id.buttonAddTask);
@@ -92,6 +91,12 @@ public class MainActivity extends AppCompatActivity {
         itemTouchHelper.attachToRecyclerView(recyclerViewTasks);
     }
 
+    private void updateTaskLists(){
+        taskList.removeAll(taskList);
+        taskList.addAll(taskRepository.getAllTasks());
+        Collections.reverse(taskList);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -103,10 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
             // Add the new task to the list and update the adapter
             taskRepository.insertTask(title,description,duedate,0);
-            taskList.removeAll(taskList);
-            taskList.addAll(taskRepository.getAllTasks());
-
-            Collections.reverse(taskList);
+            updateTaskLists();
             taskAdapter.notifyDataSetChanged();
         }
     }

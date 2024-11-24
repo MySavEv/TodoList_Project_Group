@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         taskRepository.insertTask("1", "Milk, Eggs, Bread",new Date(),0);
 
         taskList.addAll(taskRepository.getAllTasks());
+        Collections.reverse(taskList);
         taskAdapter.notifyDataSetChanged();
 
         Button buttonAddTask = findViewById(R.id.buttonAddTask);
@@ -103,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
             taskRepository.insertTask(title,description,duedate,0);
             taskList.removeAll(taskList);
             taskList.addAll(taskRepository.getAllTasks());
+
+            Collections.reverse(taskList);
             taskAdapter.notifyDataSetChanged();
         }
     }

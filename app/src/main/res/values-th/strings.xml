@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">โปรเจกต์ TodoList</string>
+    <string name="title">รายการสิ่งที่ต้องทำ</string>
+    <string name="add_task_title">เพิ่มรายการใหม่</string>
+    <string name="task_title">หัวข้องาน</string>
+    <string name="add_task_description">รายละเอียดงาน</string>
+    <string name="add_due_date">เลือกวันที่กำหนดส่ง</string>
+    <string name="save_task_btn">บันทึกรายการ</string>
+    <string name="add_new_task_btn">เพิ่มรายการใหม่</string>
+    <string-array name="planets_array">
+        <item>ยังไม่เริ่ม</item>
+        <item>กำลังดำเนินการ</item>
+        <item>เสร็จสิ้น</item>
+    </string-array>
+</resources>
+

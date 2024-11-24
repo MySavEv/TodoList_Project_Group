@@ -8,13 +8,15 @@
 
     <!-- Title -->
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:paddingBottom="8dp"
+        android:gravity="center"
         android:text="@string/title"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:layout_marginTop="10dp"
-        android:paddingBottom="8dp"/>
+        android:layout_marginBottom="14dp"/>
 
     <!-- RecyclerView for Task List -->
     <androidx.recyclerview.widget.RecyclerView
@@ -28,6 +30,10 @@
         android:id="@+id/buttonAddTask"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add New Task"
-        android:layout_marginTop="16dp"/>
+        android:text="@string/add_new_task_btn"
+        android:padding="12dp"
+        android:textSize="14sp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@android:color/holo_blue_light"/>
 </LinearLayout>

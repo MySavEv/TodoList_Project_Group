@@ -14,8 +14,8 @@
         android:id="@+id/textId"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:text="34"/>
-<!--        android:visibility="gone"-->
+        android:text="34"
+        android:visibility="gone"/>
 
 
     <LinearLayout

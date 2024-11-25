@@ -9,12 +9,11 @@
     android:background="@drawable/notyet_background"
     >
 
-    <!-- กล่องซ้ายสำหรับ Title และ Description -->
     <TextView
         android:id="@+id/textId"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:text="34"
+        android:text=""
         android:visibility="gone"/>
 
 
@@ -28,7 +27,7 @@
             android:id="@+id/textTaskTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Task Title"
+            android:text="@string/task_title"
             android:padding="2dp"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -37,7 +36,7 @@
             android:id="@+id/textTaskDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Description 1"
+            android:text="@string/add_task_description"
             android:padding="2dp"
             android:textSize="14sp" />
 
@@ -45,7 +44,7 @@
             android:id="@+id/textDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Task date"
+            android:text="@string/due_date"
             android:padding="2dp"
             android:textSize="14sp"/>
 

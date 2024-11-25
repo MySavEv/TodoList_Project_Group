@@ -6,6 +6,7 @@
     <string name="task_title">หัวข้องาน</string>
     <string name="add_task_description">รายละเอียดงาน</string>
     <string name="add_due_date">เลือกวันที่กำหนดส่ง</string>
+    <string name="due_date">กำหนดส่ง</string>
     <string name="save_task_btn">บันทึกรายการ</string>
     <string name="add_new_task_btn">เพิ่มรายการใหม่</string>
     <string-array name="planets_array">

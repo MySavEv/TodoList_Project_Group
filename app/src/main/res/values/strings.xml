@@ -5,6 +5,7 @@
     <string name="task_title">Task Title</string>
     <string name="add_task_description">Task Description</string>
     <string name="add_due_date">Select Due Date</string>
+    <string name="due_date">Due Date</string>
     <string name="save_task_btn">Save Task</string>
     <string name="add_new_task_btn">Add New Task</string>
     <string-array name="planets_array">

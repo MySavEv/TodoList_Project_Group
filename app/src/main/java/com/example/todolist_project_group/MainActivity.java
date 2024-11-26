@@ -2,8 +2,10 @@ package com.example.todolist_project_group;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerViewTasks;
     private TaskAdapter taskAdapter;
     private List<Task> taskList;
+    private boolean doubleBackToExitPressedOnce ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +98,26 @@ public class MainActivity extends AppCompatActivity {
         taskList.removeAll(taskList);
         taskList.addAll(taskRepository.getAllTasks());
         Collections.reverse(taskList);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            // ถ้าผู้ใช้กดปุ่ม Back 2 ครั้งในช่วงเวลาที่กำหนด ให้ออกจาก Activity
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "กด Back อีกครั้งเพื่อออกจากแอป", Toast.LENGTH_SHORT).show();
+
+        // ใช้ Handler เพื่อรีเซ็ตการกดปุ่ม back หลังจาก 2 วินาที
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000); // 2 วินาที
     }
 
     @Override

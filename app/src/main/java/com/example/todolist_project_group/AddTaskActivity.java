@@ -1,7 +1,10 @@
 package com.example.todolist_project_group;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.LayoutInflater;
@@ -60,6 +63,23 @@ public class AddTaskActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        // สร้าง AlertDialog เพื่อยืนยันการออกจาก Activity
+        new AlertDialog.Builder(this)
+                .setMessage("คุณแน่ใจหรือไม่ที่จะออกจากแอป?")
+                .setCancelable(false) // ทำให้ปิด Dialog โดยไม่กดปุ่มก็ไม่ได้
+                .setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        // ถ้าผู้ใช้กด "ใช่" ให้ปิด Activity
+                        AddTaskActivity.super.onBackPressed();
+                    }
+                })
+                .setNegativeButton("ไม่", null) // ถ้าผู้ใช้กด "ไม่" ให้ปิด Dialog
+                .show();
     }
 
     // สร้าง PopupWindow สำหรับแสดง CalendarView

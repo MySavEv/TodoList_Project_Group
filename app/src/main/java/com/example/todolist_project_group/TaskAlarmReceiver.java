@@ -15,11 +15,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class TaskAlarmReceiver extends BroadcastReceiver {
-    private AlarmManager alarmManager;
-    private PendingIntent alarmIntent;
-    @SuppressLint("SimpleDateFormat")
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm");
-
     @Override
     public void onReceive(Context context, Intent intent) {
         Intent service = new Intent(context, NotificationService.class);
@@ -29,27 +24,27 @@ public class TaskAlarmReceiver extends BroadcastReceiver {
         context.startService(service);
     }
 
-    public void setAlarm(Context context,Task task){
+    public static void setAlarm(Context context,Task task){
             long time = task.getTime();
-
-            alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-            Intent intent = new Intent(context, TaskAlarmReceiver.class);
-            intent.putExtra("Title",task.getTitle());
-            intent.putExtra("message",task.getDescription());
-
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
-                alarmIntent = PendingIntent.getBroadcast(context, 0, intent,PendingIntent.FLAG_IMMUTABLE);
-
-            }else {
-                alarmIntent = PendingIntent.getBroadcast(context, 0, intent,PendingIntent.FLAG_UPDATE_CURRENT);
-
-            }
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            PendingIntent alarmIntent = task.getPendingIntent(context);
 
             alarmManager.setExactAndAllowWhileIdle(
                     AlarmManager.RTC_WAKEUP,
                     time, alarmIntent);
 
             Toast.makeText(context, "Set Alarm", Toast.LENGTH_LONG).show();
+
+    }
+
+    public static void calcleAlarm(Context context,Task task){
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+        PendingIntent alarmIntent = task.getPendingIntent(context);
+
+        alarmManager.cancel(alarmIntent);
+
+        Toast.makeText(context, "Cancel Alarm", Toast.LENGTH_LONG).show();
 
     }
 }

@@ -1,6 +1,10 @@
 package com.example.todolist_project_group;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -51,6 +55,10 @@ public class Task {
         return id;
     }
 
+    public boolean getIsNoti() {
+        return isNoti == 1;
+    }
+
     public static long DateStringToTimeStamp(String dateString) {
         try {
             return sdf.parse(dateString).getTime();
@@ -59,4 +67,18 @@ public class Task {
         }
     }
 
+    public PendingIntent getPendingIntent(Context context){
+
+        Intent intent = new Intent(context, TaskAlarmReceiver.class);
+        intent.putExtra("Title",this.getTitle());
+        intent.putExtra("message",this.getDescription());
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            return PendingIntent.getBroadcast(context, getId(), intent,PendingIntent.FLAG_IMMUTABLE);
+
+        }else {
+            return PendingIntent.getBroadcast(context, getId(), intent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+        }
+    }
 }

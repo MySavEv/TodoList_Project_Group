@@ -80,6 +80,18 @@ public class TaskRepository {
         return stmt.executeUpdateDelete();
     }
 
+    public int updateIsNoti(int id,int isNoti){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String query = "UPDATE tasks\n" +
+                "SET isNoti = ?\n" +
+                "WHERE id = ?;";
+        SQLiteStatement stmt = db.compileStatement(query);
+        stmt.bindLong(1,isNoti);
+        stmt.bindLong(2,id);
+
+        return stmt.executeUpdateDelete();
+    }
+
     public int deleteTask(int id){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         String query = "DELETE FROM tasks WHERE id = ?";

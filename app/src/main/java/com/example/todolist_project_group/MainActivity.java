@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     private TaskAdapter taskAdapter;
     private List<Task> taskList;
     private boolean doubleBackToExitPressedOnce ;
-    TaskAlarmReceiver taskAlarmReceiver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         taskRepository = new TaskRepository(this);
-        taskAlarmReceiver = new TaskAlarmReceiver();
 
         recyclerViewTasks = findViewById(R.id.recyclerViewTasks);
         recyclerViewTasks.setLayoutManager(new LinearLayoutManager(this));
@@ -135,7 +133,6 @@ public class MainActivity extends AppCompatActivity {
             // Add the new task to the list and update the adapter
             taskRepository.insertTask(title,description,Task.DateStringToTimeStamp(duedatetime),0);
             updateTaskLists();
-            taskAlarmReceiver.setAlarm(this,taskList.get(0));
 
             taskAdapter.notifyDataSetChanged();
         }

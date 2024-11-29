@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -49,6 +50,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         holder.descriptionTextView.setText(task.getDescription());
         holder.textDate.setText(task.getDate());
         holder.textStatus.setAdapter(adapter);
+        holder.isNotiSwich.setChecked(task.getIsNoti());
+
 
         switch (task.getStatus()){
             case 0:
@@ -93,6 +96,16 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             }
         });
 
+        holder.isNotiSwich.setOnCheckedChangeListener((view,isChecked)->{
+            taskRepository.updateIsNoti(task.getId(),isChecked ? 1:0);
+
+            if (isChecked){
+                TaskAlarmReceiver.setAlarm(view.getContext(),task);
+            }else{
+                TaskAlarmReceiver.calcleAlarm(view.getContext(),task);
+            }
+
+        });
     }
 
     @Override
@@ -111,6 +124,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         TextView descriptionTextView;
         TextView textDate;
         Spinner textStatus;
+        Switch isNotiSwich;
 
 
         TaskViewHolder(View view) {
@@ -120,6 +134,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             descriptionTextView = view.findViewById(R.id.textTaskDescription);
             textDate = view.findViewById(R.id.textDate);
             textStatus = (Spinner)view.findViewById(R.id.textStatus);
+            isNotiSwich = (Switch) view.findViewById(R.id.isNotiSwich);
 
         }
     }

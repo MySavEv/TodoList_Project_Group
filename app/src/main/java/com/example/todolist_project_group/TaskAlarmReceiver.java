@@ -52,9 +52,14 @@ public class TaskAlarmReceiver extends BroadcastReceiver {
             if (date == null){
                 return;
             }
+            Log.d("SAVE0",String.valueOf(SystemClock.elapsedRealtime()));
+            Log.d("SAVE1",String.valueOf(calendar.getTimeInMillis()));
+
+
+
             alarmManager.setExactAndAllowWhileIdle(
-                    AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                    SystemClock.elapsedRealtime() + 2*1000, alarmIntent);
+                    AlarmManager.RTC_WAKEUP,
+                    calendar.getTimeInMillis(), alarmIntent);
 
             Toast.makeText(context, "Set Alarm", Toast.LENGTH_LONG).show();
         }catch (Exception e){

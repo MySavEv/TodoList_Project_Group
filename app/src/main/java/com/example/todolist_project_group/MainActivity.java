@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
             // Add the new task to the list and update the adapter
             taskRepository.insertTask(title,description,duedate,0,time);
             updateTaskLists();
-            taskAlarmReceiver.setAlarm(this,taskList.get(taskList.size()-1));
+            taskAlarmReceiver.setAlarm(this,taskList.get(0));
 
             taskAdapter.notifyDataSetChanged();
         }

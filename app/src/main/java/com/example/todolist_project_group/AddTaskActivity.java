@@ -1,5 +1,6 @@
 package com.example.todolist_project_group;
 
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +16,9 @@ import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.Calendar;
 
 public class AddTaskActivity extends AppCompatActivity {
     private EditText editTextTaskTitle, editTextTaskDescription;
@@ -22,7 +26,7 @@ public class AddTaskActivity extends AppCompatActivity {
     private CalendarView calendarView;
     private PopupWindow calendarPopupWindow;
     private TextView editTextDueDate;
-
+    private TextView timeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,7 @@ public class AddTaskActivity extends AppCompatActivity {
         editTextTaskDescription = findViewById(R.id.editTextTaskDescription);
         editTextDueDate = findViewById(R.id.editTextDueDate);
         buttonSaveTask = findViewById(R.id.buttonSaveTask);
+        timeButton = findViewById(R.id.timeButton);
 
         createCalendarPopup();
 
@@ -51,23 +56,42 @@ public class AddTaskActivity extends AppCompatActivity {
                 String title = editTextTaskTitle.getText().toString().trim();
                 String description = editTextTaskDescription.getText().toString().trim();
                 String duedate = editTextDueDate.getText().toString().trim();
+                String time_t = timeButton.getText().toString().trim();
 
                 // Create an intent to send the data back to MainActivity
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("TASK_TITLE", title);
                 resultIntent.putExtra("TASK_DESCRIPTION", description);
                 resultIntent.putExtra("TASK_DUEDATE", duedate);
+                resultIntent.putExtra("TASK_TIME", time_t);
 
                 // Set result and finish the activity
                 setResult(RESULT_OK, resultIntent);
                 finish();
             }
         });
+
+        timeButton.setOnClickListener(v -> {
+            // ใช้ TimePickerDialog เพื่อเลือกเวลา
+            Calendar calendar = Calendar.getInstance();
+            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+            int minute = calendar.get(Calendar.MINUTE);
+
+            TimePickerDialog timePickerDialog = new TimePickerDialog(AddTaskActivity.this,
+                    (view, selectedHour, selectedMinute) -> {
+                        // แสดงเวลา
+                        String selectedTime = selectedHour + ":" + selectedMinute;
+                        timeButton.setText(selectedTime);
+                        Toast.makeText(AddTaskActivity.this, "Selected time: " + selectedTime, Toast.LENGTH_SHORT).show();
+                    }, hour, minute, true);
+            timePickerDialog.show();
+        });
     }
 
     @Override
     public void onBackPressed() {
         // สร้าง AlertDialog เพื่อยืนยันการออกจาก Activity
+        super.onBackPressed();
         new AlertDialog.Builder(this)
                 .setMessage("คุณแน่ใจหรือไม่ที่จะออกจากแอป?")
                 .setCancelable(false) // ทำให้ปิด Dialog โดยไม่กดปุ่มก็ไม่ได้

@@ -35,13 +35,15 @@ public class MainActivity extends AppCompatActivity {
     private TaskAdapter taskAdapter;
     private List<Task> taskList;
     private boolean doubleBackToExitPressedOnce ;
-
+    TaskAlarmReceiver taskAlarmReceiver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
         taskRepository = new TaskRepository(this);
+        taskAlarmReceiver = new TaskAlarmReceiver();
 
         recyclerViewTasks = findViewById(R.id.recyclerViewTasks);
         recyclerViewTasks.setLayoutManager(new LinearLayoutManager(this));
@@ -50,11 +52,9 @@ public class MainActivity extends AppCompatActivity {
         taskAdapter = new TaskAdapter(taskList,taskRepository);
         recyclerViewTasks.setAdapter(taskAdapter);
 
-        // Sample data
-        taskRepository.insertTask("1", "Milk, Eggs, Bread",new Date(),0);
-
         updateTaskLists();
         taskAdapter.notifyDataSetChanged();
+
 
         Button buttonAddTask = findViewById(R.id.buttonAddTask);
         buttonAddTask.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
                         })
                         .setNegativeButton("No", (dialog, which) -> {
                             // Undo the swipe (reverting the swipe action)
+
                             taskAdapter.notifyItemChanged(position);
                         })
                         .show();
@@ -128,10 +129,13 @@ public class MainActivity extends AppCompatActivity {
             String title = data.getStringExtra("TASK_TITLE");
             String description = data.getStringExtra("TASK_DESCRIPTION");
             String duedate = data.getStringExtra("TASK_DUEDATE");
+            String time = data.getStringExtra("TASK_TIME");
 
             // Add the new task to the list and update the adapter
-            taskRepository.insertTask(title,description,duedate,0);
+            taskRepository.insertTask(title,description,duedate,0,time);
             updateTaskLists();
+            taskAlarmReceiver.setAlarm(this,taskList.get(taskList.size()-1));
+
             taskAdapter.notifyDataSetChanged();
         }
     }

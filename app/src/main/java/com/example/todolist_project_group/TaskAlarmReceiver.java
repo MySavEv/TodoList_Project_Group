@@ -13,7 +13,6 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 public class TaskAlarmReceiver extends BroadcastReceiver {
     private AlarmManager alarmManager;
@@ -29,14 +28,7 @@ public class TaskAlarmReceiver extends BroadcastReceiver {
     }
 
     public void setAlarm(Context context,Task task){
-
-
-        try{
-            String dateString = task.getDate() + " "+ task.getTime();
-            Date date = dateFormat.parse(dateString);
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(date);
+            long time = task.getTime();
 
             alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
             Intent intent = new Intent(context, TaskAlarmReceiver.class);
@@ -49,21 +41,12 @@ public class TaskAlarmReceiver extends BroadcastReceiver {
 
             }
 
-            if (date == null){
-                return;
-            }
-            Log.d("SAVE0",String.valueOf(SystemClock.elapsedRealtime()));
-            Log.d("SAVE1",String.valueOf(calendar.getTimeInMillis()));
-
-
 
             alarmManager.setExactAndAllowWhileIdle(
                     AlarmManager.RTC_WAKEUP,
-                    calendar.getTimeInMillis(), alarmIntent);
+                    time, alarmIntent);
 
             Toast.makeText(context, "Set Alarm", Toast.LENGTH_LONG).show();
-        }catch (Exception e){
-            Log.d("SAVE","Date parse Error");
-        }
+
     }
 }

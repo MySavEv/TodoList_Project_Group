@@ -46,36 +46,20 @@
             android:layout_marginBottom="8dp" />
 
         <!-- Due Date Selector -->
-        <LinearLayout
+
+        <TextView
+            android:id="@+id/editTextDueDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            >
+            android:hint="@string/add_due_date"
+            android:padding="12dp"
+            android:gravity="center_vertical"
+            android:textSize="16sp"
+            android:background="@android:drawable/edit_text"
+            android:drawableLeft="@android:drawable/ic_menu_my_calendar"
+            android:drawablePadding="8dp"
+            android:layout_marginBottom="16dp" />
 
-            <TextView
-                android:id="@+id/editTextDueDate"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:hint="@string/add_due_date"
-                android:padding="12dp"
-                android:gravity="center_vertical"
-                android:textSize="16sp"
-                android:background="@android:drawable/edit_text"
-                android:drawableLeft="@android:drawable/ic_menu_my_calendar"
-                android:drawablePadding="8dp"
-                android:layout_marginBottom="16dp" />
-
-            <TextView
-                android:id="@+id/timeButton"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="Select Time"
-                android:padding="12dp"
-                android:gravity="center_vertical"
-                android:textSize="16sp"
-                android:background="@android:drawable/edit_text"
-                android:drawablePadding="8dp"
-                android:layout_marginBottom="16dp" />
-        </LinearLayout>
 
 
 

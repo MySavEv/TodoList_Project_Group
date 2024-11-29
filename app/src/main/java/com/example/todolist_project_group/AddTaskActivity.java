@@ -1,5 +1,6 @@
 package com.example.todolist_project_group;
 
+import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -26,7 +27,6 @@ public class AddTaskActivity extends AppCompatActivity {
     private CalendarView calendarView;
     private PopupWindow calendarPopupWindow;
     private TextView editTextDueDate;
-    private TextView timeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,6 @@ public class AddTaskActivity extends AppCompatActivity {
         editTextTaskDescription = findViewById(R.id.editTextTaskDescription);
         editTextDueDate = findViewById(R.id.editTextDueDate);
         buttonSaveTask = findViewById(R.id.buttonSaveTask);
-        timeButton = findViewById(R.id.timeButton);
 
         createCalendarPopup();
 
@@ -55,15 +54,13 @@ public class AddTaskActivity extends AppCompatActivity {
                 // Get the task details
                 String title = editTextTaskTitle.getText().toString().trim();
                 String description = editTextTaskDescription.getText().toString().trim();
-                String duedate = editTextDueDate.getText().toString().trim();
-                String time_t = timeButton.getText().toString().trim();
+                String duedatetime = editTextDueDate.getText().toString().trim();
 
                 // Create an intent to send the data back to MainActivity
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("TASK_TITLE", title);
                 resultIntent.putExtra("TASK_DESCRIPTION", description);
-                resultIntent.putExtra("TASK_DUEDATE", duedate);
-                resultIntent.putExtra("TASK_TIME", time_t);
+                resultIntent.putExtra("TASK_DUEDATETIME", duedatetime);
 
                 // Set result and finish the activity
                 setResult(RESULT_OK, resultIntent);
@@ -71,20 +68,33 @@ public class AddTaskActivity extends AppCompatActivity {
             }
         });
 
-        timeButton.setOnClickListener(v -> {
-            // ใช้ TimePickerDialog เพื่อเลือกเวลา
+        editTextDueDate.setOnClickListener(v -> {
+            // แสดง DatePickerDialog
             Calendar calendar = Calendar.getInstance();
-            int hour = calendar.get(Calendar.HOUR_OF_DAY);
-            int minute = calendar.get(Calendar.MINUTE);
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-            TimePickerDialog timePickerDialog = new TimePickerDialog(AddTaskActivity.this,
-                    (view, selectedHour, selectedMinute) -> {
-                        // แสดงเวลา
-                        String selectedTime = selectedHour + ":" + selectedMinute;
-                        timeButton.setText(selectedTime);
-                        Toast.makeText(AddTaskActivity.this, "Selected time: " + selectedTime, Toast.LENGTH_SHORT).show();
-                    }, hour, minute, true);
-            timePickerDialog.show();
+            DatePickerDialog datePickerDialog = new DatePickerDialog(
+                    AddTaskActivity.this,
+                    (view, selectedYear, selectedMonth, selectedDay) -> {
+                        // เมื่อเลือกวันที่เสร็จแล้ว แสดง TimePickerDialog
+                        TimePickerDialog timePickerDialog = new TimePickerDialog(
+                                AddTaskActivity.this,
+                                (timeView, hourOfDay, minute) -> {
+                                    String selectedDateTime = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear
+                                            + " " + hourOfDay + ":" + String.format("%02d", minute);
+                                    editTextDueDate.setText(selectedDateTime);
+                                },
+                                calendar.get(Calendar.HOUR_OF_DAY),
+                                calendar.get(Calendar.MINUTE),
+                                true
+                        );
+                        timePickerDialog.show();
+                    },
+                    year, month, day
+            );
+            datePickerDialog.show();
         });
     }
 

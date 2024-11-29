@@ -2,42 +2,28 @@ package com.example.todolist_project_group;
 
 import android.annotation.SuppressLint;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Task {
     @SuppressLint("SimpleDateFormat")
-    private static final SimpleDateFormat dateFormat =
-            new SimpleDateFormat("yyyy-MM-dd");
-    @SuppressLint("SimpleDateFormat")
-    private static final SimpleDateFormat timeFormat =
-            new SimpleDateFormat("HH:mm");
+    private static final SimpleDateFormat sdf =
+            new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
     private int id;
     private String title;
     private String description;
-    private String date;
-    private String time;
+    private long datetime;
     private int status;
     private int isNoti;
 
-    public Task(int id, String title, String description, Date date, int status , String time,int isNoti) {
+    public Task(int id, String title, String description, long datetime, int status,int isNoti) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.date = dateFormat.format(date);
+        this.datetime = datetime;
         this.status = status;
-        this.time = time;
-        this.isNoti = isNoti;
-    }
-
-    public Task(int id, String title, String description, String date, int status, String time,int isNoti) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.date = date;
-        this.status = status;
-        this.time = time;
         this.isNoti = isNoti;
     }
 
@@ -49,8 +35,12 @@ public class Task {
         return description;
     }
 
-    public String getDate() {
-        return date;
+    public long getTime() {
+        return datetime;
+    }
+
+    public String getDate(){
+        return sdf.format(new Date(this.datetime));
     }
 
     public int getStatus() {
@@ -61,8 +51,12 @@ public class Task {
         return id;
     }
 
-    public String getTime(){
-        return this.time;
+    public static long DateStringToTimeStamp(String dateString) {
+        try {
+            return sdf.parse(dateString).getTime();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.todolist_project_group;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -124,15 +125,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == ADD_TASK_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             // Retrieve the task details from the intent
             String title = data.getStringExtra("TASK_TITLE");
             String description = data.getStringExtra("TASK_DESCRIPTION");
-            String duedate = data.getStringExtra("TASK_DUEDATE");
-            String time = data.getStringExtra("TASK_TIME");
+            String duedatetime = data.getStringExtra("TASK_DUEDATETIME");
 
             // Add the new task to the list and update the adapter
-            taskRepository.insertTask(title,description,duedate,0,time);
+            taskRepository.insertTask(title,description,Task.DateStringToTimeStamp(duedatetime),0);
             updateTaskLists();
             taskAlarmReceiver.setAlarm(this,taskList.get(0));
 

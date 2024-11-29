@@ -35,14 +35,13 @@ public class TaskRepository {
         return id;
     }
 
-    public long insertTask(String title, String description, String date,int status,String time) {
+    public long insertTask(String title, String description, long datetime,int status) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("title", title);
         values.put("description", description);
-        values.put("date", date);
+        values.put("datetime", datetime);
         values.put("status", status);
-        values.put("time", time);
         values.put("isNoti", 0);
 
         // เพิ่มข้อมูลลงตาราง tasks
@@ -59,7 +58,7 @@ public class TaskRepository {
 
         if (cursor.moveToFirst()) {
             do {
-                Task t = new Task(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getInt(4),cursor.getString(5),cursor.getInt(6));
+                Task t = new Task(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getLong(3),cursor.getInt(4),cursor.getInt(5));
                 tasks.add(t); // เพิ่ม title ลง List
 
             } while (cursor.moveToNext());

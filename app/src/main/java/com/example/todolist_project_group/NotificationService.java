@@ -29,12 +29,13 @@ public class NotificationService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         // ข้อความที่จะใช้แสดงใน Notification
+        String title = intent.getStringExtra("Title");
         String message = intent.getStringExtra("message");
 
-        showNotification(message);
+        showNotification(title,message);
     }
 
-    private void showNotification(String message) {
+    private void showNotification(String title,String message) {
         createNotificationChannel();
 
         // Intent สำหรับเปิด Activity เมื่อแตะ Notification
@@ -50,8 +51,8 @@ public class NotificationService extends IntentService {
 
         // สร้าง Notification
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(android.R.drawable.ic_dialog_info) // ไอคอนของ Notification
-                .setContentTitle("Reminder") // หัวข้อ
+                .setSmallIcon(R.mipmap.ic_launcher) // ไอคอนของ Notification
+                .setContentTitle(title) // หัวข้อ
                 .setContentText(message) // ข้อความ
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setAutoCancel(true) // ปิด Notification อัตโนมัติเมื่อแตะ

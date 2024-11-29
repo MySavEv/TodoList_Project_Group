@@ -23,7 +23,9 @@ public class TaskAlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Intent service = new Intent(context, NotificationService.class);
-        service.putExtra("message", "ถึงเวลาทำงานแล้ว!");
+        service.putExtra("Title", intent.getStringExtra("Title"));
+        service.putExtra("message", intent.getStringExtra("message"));
+
         context.startService(service);
     }
 
@@ -32,7 +34,9 @@ public class TaskAlarmReceiver extends BroadcastReceiver {
 
             alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
             Intent intent = new Intent(context, TaskAlarmReceiver.class);
-            intent.putExtra("msg",task.getTitle());
+            intent.putExtra("Title",task.getTitle());
+            intent.putExtra("message",task.getDescription());
+
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
                 alarmIntent = PendingIntent.getBroadcast(context, 0, intent,PendingIntent.FLAG_IMMUTABLE);
 
@@ -40,7 +44,6 @@ public class TaskAlarmReceiver extends BroadcastReceiver {
                 alarmIntent = PendingIntent.getBroadcast(context, 0, intent,PendingIntent.FLAG_UPDATE_CURRENT);
 
             }
-
 
             alarmManager.setExactAndAllowWhileIdle(
                     AlarmManager.RTC_WAKEUP,

@@ -5,10 +5,15 @@
     <string name="add_task_title">เพิ่มรายการใหม่</string>
     <string name="task_title">หัวข้องาน</string>
     <string name="add_task_description">รายละเอียดงาน</string>
-    <string name="add_due_date">เลือกวันที่กำหนดส่ง</string>
+    <string name="add_due_date">เลือกวันที่และเวลากำหนดส่ง</string>
     <string name="due_date">กำหนดส่ง</string>
     <string name="save_task_btn">บันทึกรายการ</string>
     <string name="add_new_task_btn">เพิ่มรายการใหม่</string>
+    <string name="dialog">คุณแน่ใจหรือไม่ว่าต้องการลบรายการนี้?</string>
+    <string name="option1">ยืนยัน</string>
+    <string name="option0">ยกเลิก</string>
+    <string name="alarm">ตั้งแจ้งเตือน</string>
+    <string name="set_alarm">ตั้งแจ้งเตือน</string>
     <string-array name="planets_array">
         <item>ยังไม่เริ่ม</item>
         <item>กำลังดำเนินการ</item>
@@ -17,6 +22,7 @@
     <string name="add_alarm">ตั้งเวลาสำเร็จ</string>
     <string name="cancel_alarm">ยกเลิกการตั้งเวลา</string>
     <string name="invalid_alarm">ไม่สามารถตั้งเวลาที่ผ่านไปแล้ว</string>
-    <string name="require_date">กรุณาใส่วันที่</string>
+    <string name="require_date">กรุณาใส่วันที่และเวลา</string>
+    <string name="exit">คุณแน่ใจหรือไม่ที่จะออกจากแอป?</string>
 </resources>
 

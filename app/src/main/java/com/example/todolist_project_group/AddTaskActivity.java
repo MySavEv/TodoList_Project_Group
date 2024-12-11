@@ -52,7 +52,7 @@ public class AddTaskActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(editTextDueDate.getText().toString().isEmpty()){
-                    Toast.makeText(getApplicationContext(),"Need Date", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.require_date), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -108,16 +108,16 @@ public class AddTaskActivity extends AppCompatActivity {
         // สร้าง AlertDialog เพื่อยืนยันการออกจาก Activity
         super.onBackPressed();
         new AlertDialog.Builder(this)
-                .setMessage("คุณแน่ใจหรือไม่ที่จะออกจากแอป?")
+                .setMessage(getString(R.string.exit))
                 .setCancelable(false) // ทำให้ปิด Dialog โดยไม่กดปุ่มก็ไม่ได้
-                .setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                .setPositiveButton( getString(R.string.option1), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         // ถ้าผู้ใช้กด "ใช่" ให้ปิด Activity
                         AddTaskActivity.super.onBackPressed();
                     }
                 })
-                .setNegativeButton("ไม่", null) // ถ้าผู้ใช้กด "ไม่" ให้ปิด Dialog
+                .setNegativeButton(getString(R.string.option0), null) // ถ้าผู้ใช้กด "ไม่" ให้ปิด Dialog
                 .show();
     }
 

@@ -73,15 +73,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
+                String dialogText = getResources().getString(R.string.dialog);
+                String op0 = getString(R.string.option0);
+                String op1 = getString(R.string.option1);
                 //Alert ask use for delete task
                 new AlertDialog.Builder(MainActivity.this)
-                        .setMessage("Are you sure you want to delete this task?")
-                        .setPositiveButton("Yes", (dialog, which) -> {
+                        .setMessage(dialogText)
+                        .setPositiveButton(op1, (dialog, which) -> {
                             // Proceed with deletion
                             taskRepository.deleteTask(taskList.get(position).getId());
                             taskAdapter.removeItem(position);
                         })
-                        .setNegativeButton("No", (dialog, which) -> {
+                        .setNegativeButton(op0, (dialog, which) -> {
                             // Undo the swipe (reverting the swipe action)
 
                             taskAdapter.notifyItemChanged(position);

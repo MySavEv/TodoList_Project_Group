@@ -26,6 +26,7 @@ public class TaskAlarmReceiver extends BroadcastReceiver {
 
     public static void setAlarm(Context context,Task task){
             long time = task.getTime();
+
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             PendingIntent alarmIntent = task.getPendingIntent(context);
 
@@ -33,7 +34,7 @@ public class TaskAlarmReceiver extends BroadcastReceiver {
                     AlarmManager.RTC_WAKEUP,
                     time, alarmIntent);
 
-            Toast.makeText(context, "Set Alarm", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, R.string.add_alarm, Toast.LENGTH_SHORT).show();
 
     }
 
@@ -44,7 +45,7 @@ public class TaskAlarmReceiver extends BroadcastReceiver {
 
         alarmManager.cancel(alarmIntent);
 
-        Toast.makeText(context, "Cancel Alarm", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, R.string.cancel_alarm, Toast.LENGTH_SHORT).show();
 
     }
 }

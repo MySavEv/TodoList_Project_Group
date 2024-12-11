@@ -9,8 +9,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.Date;
 import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
@@ -97,6 +101,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         });
 
         holder.isNotiSwich.setOnCheckedChangeListener((view,isChecked)->{
+            long tasktime =  task.getTime();
+            long nowtime = (new Date()).getTime();
+            if(tasktime < nowtime){
+                Toast.makeText(adapter.getContext(), R.string.invalid_alarm, Toast.LENGTH_SHORT).show();
+                holder.isNotiSwich.setChecked(false);
+                taskRepository.updateIsNoti(task.getId(),0);
+                return;
+            }
             taskRepository.updateIsNoti(task.getId(),isChecked ? 1:0);
 
             if (isChecked){

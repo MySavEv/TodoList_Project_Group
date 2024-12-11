@@ -14,5 +14,8 @@
         <item>กำลังดำเนินการ</item>
         <item>เสร็จสิ้น</item>
     </string-array>
+    <string name="add_alarm">ตั้งเวลาสำเร็จ</string>
+    <string name="cancel_alarm">ยกเลิกการตั้งเวลา</string>
+    <string name="invalid_alarm">ไม่สามารถตั้งเวลาที่ผ่านไปแล้ว</string>
 </resources>
 

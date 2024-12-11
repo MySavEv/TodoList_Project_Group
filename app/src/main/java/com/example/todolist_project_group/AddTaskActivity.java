@@ -51,6 +51,11 @@ public class AddTaskActivity extends AppCompatActivity {
         buttonSaveTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(editTextDueDate.getText().toString().isEmpty()){
+                    Toast.makeText(getApplicationContext(),"Need Date", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 // Get the task details
                 String title = editTextTaskTitle.getText().toString().trim();
                 String description = editTextTaskDescription.getText().toString().trim();

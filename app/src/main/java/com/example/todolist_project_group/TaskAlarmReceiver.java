@@ -4,8 +4,10 @@ import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Toast;
@@ -35,6 +37,10 @@ public class TaskAlarmReceiver extends BroadcastReceiver {
                     time, alarmIntent);
 
             Toast.makeText(context, R.string.add_alarm, Toast.LENGTH_SHORT).show();
+
+            ComponentName receiver = new ComponentName(context,SampleBootReceiver.class);
+            PackageManager pm = context.getPackageManager();
+            pm.setComponentEnabledSetting(receiver,PackageManager.COMPONENT_ENABLED_STATE_ENABLED,PackageManager.DONT_KILL_APP);
 
     }
 

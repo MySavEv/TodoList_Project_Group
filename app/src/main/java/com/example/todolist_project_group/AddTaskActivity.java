@@ -52,9 +52,18 @@ public class AddTaskActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(editTextDueDate.getText().toString().isEmpty()){
-                    Toast.makeText(getApplicationContext(), getString(R.string.require_date), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.required), Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if(editTextTaskTitle.getText().toString().isEmpty()){
+                    Toast.makeText(getApplicationContext(), getString(R.string.required), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(editTextTaskDescription.getText().toString().isEmpty()){
+                    Toast.makeText(getApplicationContext(), getString(R.string.required), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
 
                 // Get the task details
                 String title = editTextTaskTitle.getText().toString().trim();
@@ -106,11 +115,10 @@ public class AddTaskActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // สร้าง AlertDialog เพื่อยืนยันการออกจาก Activity
-        super.onBackPressed();
         new AlertDialog.Builder(this)
                 .setMessage(getString(R.string.exit))
                 .setCancelable(false) // ทำให้ปิด Dialog โดยไม่กดปุ่มก็ไม่ได้
-                .setPositiveButton( getString(R.string.option1), new DialogInterface.OnClickListener() {
+                .setPositiveButton(getString(R.string.option1), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         // ถ้าผู้ใช้กด "ใช่" ให้ปิด Activity

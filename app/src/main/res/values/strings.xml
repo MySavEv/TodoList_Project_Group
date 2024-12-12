@@ -21,6 +21,6 @@
     <string name="add_alarm">Set Alarm</string>
     <string name="cancel_alarm">Cancel Alarm</string>
     <string name="invalid_alarm">Cannot Set Alarm</string>
-    <string name="require_date">Need Date and Time</string>
-    <string name="exit">Are you sure you want to exit this app?</string>
+    <string name="required">Please fill in all the required fields.</string>
+    <string name="exit">Are you sure you want to exit from add New Task?</string>
 </resources>

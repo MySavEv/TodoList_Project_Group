@@ -22,7 +22,7 @@
     <string name="add_alarm">ตั้งเวลาสำเร็จ</string>
     <string name="cancel_alarm">ยกเลิกการตั้งเวลา</string>
     <string name="invalid_alarm">ไม่สามารถตั้งเวลาที่ผ่านไปแล้ว</string>
-    <string name="require_date">กรุณาใส่วันที่และเวลา</string>
-    <string name="exit">คุณแน่ใจหรือไม่ที่จะออกจากแอป?</string>
+    <string name="required">กรุณากรอกข้อมูลให้ครบ</string>
+    <string name="exit">คุณแน่ใจหรือไม่ที่จะออกจากการสร้างรายการ?</string>
 </resources>
 

@@ -38,6 +38,11 @@
             android:permission="android.permission.FOREGROUND_SERVICE"
             android:exported="false" />
         <receiver android:name=".TaskAlarmReceiver" android:enabled="true" android:exported="false" />
+        <receiver android:name=".SampleBootReceiver" android:enabled="true" android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
